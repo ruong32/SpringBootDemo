@@ -4,6 +4,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +20,8 @@ public class StudentController {
     StudentRepository repository;
 
     @PostMapping("/create")
-    public @ResponseBody String addStudent(@RequestParam String name,
-            @RequestParam String address, @RequestParam String dateOfBirth) {
+    public @ResponseBody String addStudent(@RequestParam String name, @RequestParam String address,
+            @RequestParam String dateOfBirth) {
         repository.save(new Student(name, address, dateOfBirth));
         return name + " created!";
     }
@@ -44,7 +45,9 @@ public class StudentController {
     }
 
     @PutMapping("/updateStudent")
-    public @ResponseBody String updateStudent(){
-        return "user updated!";
+    public @ResponseBody String updateStudent(@ModelAttribute Student student) {
+        repository.save(student);
+        return student + " updated!";
     }
+
 }
