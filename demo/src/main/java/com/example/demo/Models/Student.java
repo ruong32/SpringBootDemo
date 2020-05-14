@@ -1,18 +1,28 @@
 package com.example.demo.Models;
 
-import java.time.*;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "Students")
 public class Student {
-    private String id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "address")
     private String address;
-    private LocalDate dateOfBirth;
+
+    @Column(name = "dateOfBirth")
+    private String dateOfBirth;
 
     public Student(){
 
     }
 
-    public Student(String name, String address, LocalDate dateOfBirth){
+    public Student(String name, String address, String dateOfBirth){
         this.name = name;
         this.address = address;
         this.dateOfBirth = dateOfBirth;
@@ -26,7 +36,7 @@ public class Student {
         return this.address;
     }
 
-    public LocalDate getDateOfBirth(){
+    public String getDateOfBirth(){
         return this.dateOfBirth;
     }
 
@@ -38,7 +48,7 @@ public class Student {
         return this.address;
     }
 
-    public LocalDate setDateOfBirth(LocalDate dateOfBirth){
+    public String setDateOfBirth(String dateOfBirth){
         return this.dateOfBirth;
     }
 
