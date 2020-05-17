@@ -1,12 +1,6 @@
 package com.example.demo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Likes")
@@ -18,11 +12,11 @@ public class Like {
 
   private String type = "like"; // like, haha, wow, angry,...
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
   private Post post;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
   private User user;
 
@@ -55,8 +49,16 @@ public class Like {
     return this.user;
   }
 
+  public void setUser(User user) {
+    this.user = user;
+  }
+
   // post
   public Post getPost() {
     return this.post;
+  }
+
+  public void setPost(Post post) {
+    this.post = post;
   }
 }

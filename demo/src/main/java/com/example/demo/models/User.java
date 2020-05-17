@@ -1,13 +1,9 @@
 package com.example.demo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "Users")
@@ -18,13 +14,20 @@ public class User {
 
   private String userName;
 
-  @OneToMany(mappedBy = "poster")
-  private Collection<Post> posts;
+  @OneToMany(mappedBy = "poster", cascade = CascadeType.ALL)
+  private List<Post> posts = new ArrayList<Post>();
 
-  @OneToMany(mappedBy = "user")
-  private Collection<Like> likes;
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL )
+  private List<Like> likes = new ArrayList<Like>();
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL )
+  private List<Comment> comments = new ArrayList<Comment>();
 
   // contructor
+  public User() {
+
+  }
+
   public User(String userName) {
     this.userName = userName;
   }
@@ -36,12 +39,12 @@ public class User {
   }
 
   // posts
-  public Collection<Post> getPosts() {
+  public List<Post> getPosts() {
     return this.posts;
   }
 
   // likes
-  public Collection<Like> getLikes() {
+  public List<Like> getLikes() {
     return this.likes;
   }
 

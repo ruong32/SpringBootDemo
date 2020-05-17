@@ -1,17 +1,10 @@
 package com.example.demo.models;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Posts")
@@ -23,17 +16,21 @@ public class Post {
   @Column(nullable = false)
   private String content;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "poster_id", referencedColumnName = "id", nullable = false)
   private User poster;
 
   @OneToMany(mappedBy = "post")
-  private Collection<Like> likes;
+  private List<Like> likes = new ArrayList<Like>();
 
   @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
   private Date createdAt;
 
   // constructor
+  public Post() {
+
+  }
+
   public Post(String content) {
     this.content = content;
   }
@@ -53,8 +50,17 @@ public class Post {
     this.content = content;
   }
 
+  // user
+  public User getUser() {
+    return this.poster;
+  }
+
+  public void setUser(User poster) {
+    this.poster = poster;
+  }
+
   // like
-  public Collection<Like> getLikes() {
+  public List<Like> getLikes() {
     return this.likes;
   }
 
