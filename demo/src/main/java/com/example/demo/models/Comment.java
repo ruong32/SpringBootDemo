@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 import javax.persistence.*;
@@ -46,6 +48,7 @@ public class Comment {
   }
 
   // user
+  @JsonIgnore
   public User getUser() {
     return this.user;
   }
@@ -55,6 +58,7 @@ public class Comment {
   }
 
   // post
+  @JsonIgnore
   public Post getPost() {
     return this.post;
   }

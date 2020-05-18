@@ -16,9 +16,7 @@ public class UserController {
 
   @PostMapping(path = "/createUser")
   public @ResponseBody boolean createUser(@RequestBody User user) {
-    if (!userServices.findUserById(user.getId()).isEmpty()){
-      return false;
-    }
+    if (user.equals(null)) return false;
     return userServices.createUser(user);
   }
 
@@ -35,4 +33,15 @@ public class UserController {
     return result;
   }
 
+  @GetMapping(path = "/getUserById/{id}")
+  public @ResponseBody User getUserById(@PathVariable int id) {
+    Optional<User> user = userServices.findUserById(id);
+    if (user.isEmpty()) return null;
+    return user.get();
+  }
+
+  @GetMapping(path = "/findUserByName/{name}")
+  public @ResponseBody List<User> getUserByName(@PathVariable String name) {
+    return userServices.findByName(name);
+  }
 }

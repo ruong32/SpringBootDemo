@@ -1,10 +1,12 @@
 package com.example.demo.services;
 
+import com.example.demo.specifications.UserSpecs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.models.User;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,5 +27,9 @@ public class UserServices {
 
   public void deleteUser(int id){
     repository.deleteById(id);
+  }
+
+  public List<User> findByName(String name){
+    return repository.findAll(UserSpecs.userNameIs(name));
   }
 }

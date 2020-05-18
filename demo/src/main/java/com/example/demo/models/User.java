@@ -2,6 +2,8 @@ package com.example.demo.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -39,13 +41,20 @@ public class User {
   }
 
   // posts
+  @JsonIgnore
   public List<Post> getPosts() {
     return this.posts;
   }
 
   // likes
+  @JsonIgnore
   public List<Like> getLikes() {
     return this.likes;
+  }
+
+  // comments
+  public List<Comment> getComments() {
+    return this.comments;
   }
 
   // username

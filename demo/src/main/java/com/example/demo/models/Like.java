@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,11 +15,11 @@ public class Like {
   private String type = "like"; // like, haha, wow, angry,...
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+  @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
   private Post post;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
   private User user;
 
   // constructor
@@ -45,6 +47,7 @@ public class Like {
   }
 
   // user
+  @JsonIgnore
   public User getUser() {
     return this.user;
   }
@@ -54,6 +57,7 @@ public class Like {
   }
 
   // post
+  @JsonIgnore
   public Post getPost() {
     return this.post;
   }

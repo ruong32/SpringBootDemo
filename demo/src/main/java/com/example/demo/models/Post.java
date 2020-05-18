@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,6 +53,7 @@ public class Post {
   }
 
   // user
+  @JsonIgnore
   public User getUser() {
     return this.poster;
   }
@@ -60,6 +63,7 @@ public class Post {
   }
 
   // like
+  @JsonIgnore
   public List<Like> getLikes() {
     return this.likes;
   }
