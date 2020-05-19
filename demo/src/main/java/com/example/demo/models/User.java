@@ -25,58 +25,46 @@ public class User {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL )
   private List<Comment> comments = new ArrayList<Comment>();
 
-  // contructor
   public User() {
-
   }
 
-  public User(String userName) {
-    this.userName = userName;
-  }
-
-  // setter, getter
-  // id
   public int getId() {
-    return this.id;
+    return id;
   }
 
-  // posts
-  @JsonIgnore
-  public List<Post> getPosts() {
-    return this.posts;
+  public void setId(int id) {
+    this.id = id;
   }
 
-  public void setPosts(List<Post> posts) {
-    this.posts = posts;
-  }
-
-  // likes
-  @JsonIgnore
-  public List<Like> getLikes() {
-    return this.likes;
-  }
-
-  public void setLikes(List<Like> likes) {
-    this.likes = likes;
-  }
-
-  // comments
-  @JsonIgnore
-  public List<Comment> getComments() {
-    return this.comments;
-  }
-
-  public void setComments(List<Comment> comments) {
-    this.comments = comments;
-  }
-
-  // username
   public String getUserName() {
-    return this.userName;
+    return userName;
   }
 
   public void setUserName(String userName) {
     this.userName = userName;
   }
 
+  public List<Post> getPosts() {
+    return posts;
+  }
+
+  public void setPosts(List<Post> posts) {
+    this.posts = posts;
+  }
+
+  public List<Like> getLikes() {
+    return likes;
+  }
+
+  public void setLikes(List<Like> likes) {
+    this.likes = likes;
+  }
+
+  public List<Comment> getComments() {
+    return comments;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
+  }
 }

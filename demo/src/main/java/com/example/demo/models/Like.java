@@ -14,55 +14,46 @@ public class Like {
 
   private String type = "like"; // like, haha, wow, angry,...
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
   private Post post;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
   private User user;
 
-  // constructor
   public Like() {
-
   }
 
-  public Like(String type) {
-    this.type = type;
-  }
-
-  // setter, getter
-  // id
   public int getId() {
-    return this.id;
+    return id;
   }
 
-  // type
+  public void setId(int id) {
+    this.id = id;
+  }
+
   public String getType() {
-    return this.type;
+    return type;
   }
 
   public void setType(String type) {
     this.type = type;
   }
 
-  // user
-  @JsonIgnore
-  public User getUser() {
-    return this.user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
-
-  // post
-  @JsonIgnore
   public Post getPost() {
-    return this.post;
+    return post;
   }
 
   public void setPost(Post post) {
     this.post = post;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 }

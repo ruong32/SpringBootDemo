@@ -13,12 +13,12 @@ public class Comment {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
   private Post post;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
   private User user;
 
   @Column(nullable = false)
@@ -27,49 +27,43 @@ public class Comment {
   @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
   private Date createdAt;
 
-  // constructor
-  public Comment(String content) {
-    this.content = content;
+  public Comment() {
   }
 
-  // getter, setter
-  // id
   public int getId() {
-    return this.id;
+    return id;
   }
 
-  // content
-  public String getContent() {
-    return this.content;
+  public void setId(int id) {
+    this.id = id;
   }
 
-  public void setContent(String content) {
-    this.content = content;
-  }
-
-  // user
-  @JsonIgnore
-  public User getUser() {
-    return this.user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
-
-  // post
-  @JsonIgnore
   public Post getPost() {
-    return this.post;
+    return post;
   }
 
   public void setPost(Post post) {
     this.post = post;
   }
 
-  // createdAt
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
+  }
+
   public Date getCreatedAt() {
-    return this.createdAt;
+    return createdAt;
   }
 
   public void setCreatedAt(Date createdAt) {

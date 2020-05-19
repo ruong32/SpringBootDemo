@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
-import com.example.demo.responseObjects.GetAllLikesOfPostResponse;
+import com.example.demo.dto.LikeDTO;
+import com.example.demo.dto.PostDTO;
+import com.example.demo.utilities.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
@@ -23,26 +25,36 @@ public class PostController {
   private LikeServices likeServices;
 
   @PostMapping(path = "/createPost", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody boolean createPost(@RequestBody Post post) {
-    if (userServices.findUserById(post.getUser().getId()).isEmpty()){
+  public @ResponseBody boolean createPost(@RequestBody PostDTO postDTO) {
+    if (userServices.findUserById(postDTO.getPoster().getId()).isEmpty()){
       return false;
     }
-    return postServices.createPost(post);
+    Post postWillCreate = Converter.fromTo(postDTO, Post.class);
+    return postServices.createPost(postWillCreate);
   }
 
   @GetMapping(path="/findPostByContent/{find}")
-  public @ResponseBody List<Post> findPostByContent(@PathVariable String find) {
-    return postServices.findPostByContent(find);
+  public @ResponseBody List<PostDTO> findPostByContent(@PathVariable String find) {
+    List<Post> resultList = postServices.findPostByContent(find);
+    return Converter.fromToList(resultList, PostDTO.class);
   }
 
   @GetMapping(path="/findPostFromDate")
-  public @ResponseBody List<Post> findPostFromDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
-    return postServices.findPostFromDate(date);
+  public @ResponseBody List<PostDTO> findPostFromDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+    List<Post> resultList = postServices.findPostFromDate(date);
+    return Converter.fromToList(resultList, PostDTO.class);
   }
 
   @GetMapping(path="/getAllLikesOfPost/{postId}")
-  public @ResponseBody List<GetAllLikesOfPostResponse> getAllLikesOfPost(@PathVariable int postId) {
-    return likeServices.getAllLikesOfPost(postId);
+  public @ResponseBody List<LikeDTO> getAllLikesOfPost(@PathVariable int postId) {
+    List<Like> resultList = likeServices.getAllLikesOfPost(postId);
+    return Converter.fromToList(resultList, LikeDTO.class);
+  }
+
+  @DeleteMapping(path = "/deletePostById")
+  public @ResponseBody boolean deletePostById(@RequestBody int postId){
+    postServices.deletePostById(postId);
+    return true;
   }
 
 }

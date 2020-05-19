@@ -18,63 +18,56 @@ public class Post {
   @Column(nullable = false)
   private String content;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "poster_id", referencedColumnName = "id", nullable = false)
   private User poster;
 
-  @OneToMany(mappedBy = "post")
+  @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
   private List<Like> likes = new ArrayList<Like>();
 
   @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
   private Date createdAt;
 
-  // constructor
   public Post() {
-
   }
 
-  public Post(String content) {
-    this.content = content;
-  }
-
-  // setter, getter
-  // id
   public int getId() {
-    return this.id;
+    return id;
   }
 
-  // content
+  public void setId(int id) {
+    this.id = id;
+  }
+
   public String getContent() {
-    return this.content;
+    return content;
   }
 
   public void setContent(String content) {
     this.content = content;
   }
 
-  // user
-  @JsonIgnore
-  public User getUser() {
-    return this.poster;
+  public User getPoster() {
+    return poster;
   }
 
-  public void setUser(User poster) {
+  public void setPoster(User poster) {
     this.poster = poster;
   }
 
-  // like
-  @JsonIgnore
   public List<Like> getLikes() {
-    return this.likes;
+    return likes;
   }
 
-  // createdAt
+  public void setLikes(List<Like> likes) {
+    this.likes = likes;
+  }
+
   public Date getCreatedAt() {
-    return this.createdAt;
+    return createdAt;
   }
 
   public void setCreatedAt(Date createdAt) {
     this.createdAt = createdAt;
   }
-
 }

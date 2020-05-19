@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import com.example.demo.dto.LikeDTO;
+import com.example.demo.utilities.Converter;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,22 +21,23 @@ public class LikeController {
     private UserServices userServices;
 
     @PostMapping(value="/like")
-    public @ResponseBody boolean createLike(@RequestBody Like like) {
-        if (userServices.findUserById(like.getUser().getId()).isEmpty()){
+    public @ResponseBody boolean createLike(@RequestBody LikeDTO likeDTO) {
+        if (userServices.findUserById(likeDTO.getUser().getId()).isEmpty()){
             return false;
         }
-        if (postServices.findPostById(like.getPost().getId()).isEmpty()){
+        if (postServices.findPostById(likeDTO.getPostId()).isEmpty()){
             return false;
         }
-        if (likeServices.isDuplicated(like.getUser().getId(), like.getPost().getId())){
+        if (likeServices.isDuplicated(likeDTO.getUser().getId(), likeDTO.getPostId())){
             return false;
         }
-        return likeServices.createLike(like);
+        Like likeWillCreate = Converter.fromTo(likeDTO, Like.class);
+        return likeServices.createLike(likeWillCreate);
     }
 
     @DeleteMapping(value = "/unlike")
-    public @ResponseBody boolean unlike(@RequestBody Like like){
-        return likeServices.unlike(like.getUser().getId(), like.getPost().getId());
+    public @ResponseBody boolean unlike(@RequestBody LikeDTO LikeDTO){
+        return likeServices.unlike(LikeDTO.getUser().getId(), LikeDTO.getPostId());
     }
     
 }

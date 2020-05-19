@@ -34,4 +34,9 @@ public class PostServices {
     return repository.findAll(PostSpecs.laterThan(date));
   }
 
+  public boolean deletePostById(int postId) {
+    repository.deleteById(postId);
+    return true;
+  }
+
 }
