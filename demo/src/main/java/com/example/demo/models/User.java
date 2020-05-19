@@ -46,15 +46,28 @@ public class User {
     return this.posts;
   }
 
+  public void setPosts(List<Post> posts) {
+    this.posts = posts;
+  }
+
   // likes
   @JsonIgnore
   public List<Like> getLikes() {
     return this.likes;
   }
 
+  public void setLikes(List<Like> likes) {
+    this.likes = likes;
+  }
+
   // comments
+  @JsonIgnore
   public List<Comment> getComments() {
     return this.comments;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
   }
 
   // username

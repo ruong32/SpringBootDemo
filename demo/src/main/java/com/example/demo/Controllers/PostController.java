@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.responseObjects.GetAllLikesOfPostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
@@ -40,7 +41,7 @@ public class PostController {
   }
 
   @GetMapping(path="/getAllLikesOfPost/{postId}")
-  public @ResponseBody List<Like> getAllLikesOfPost(@PathVariable int postId) {
+  public @ResponseBody List<GetAllLikesOfPostResponse> getAllLikesOfPost(@PathVariable int postId) {
     return likeServices.getAllLikesOfPost(postId);
   }
 
