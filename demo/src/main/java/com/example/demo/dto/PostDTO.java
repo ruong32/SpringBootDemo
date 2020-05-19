@@ -8,6 +8,7 @@ public class PostDTO {
     private String content;
     private UserDTO poster;
     private List<LikeDTO> likes;
+    private List<CommentDTO> comments;
     private Date createdAt;
 
     public PostDTO() {
@@ -43,6 +44,14 @@ public class PostDTO {
 
     public void setLikes(List<LikeDTO> likes) {
         this.likes = likes;
+    }
+
+    public List<CommentDTO> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentDTO> comments) {
+        this.comments = comments;
     }
 
     public Date getCreatedAt() {

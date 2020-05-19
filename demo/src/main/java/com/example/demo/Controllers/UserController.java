@@ -19,7 +19,7 @@ public class UserController {
 
   @PostMapping(path = "/createUser")
   public @ResponseBody boolean createUser(@RequestBody UserDTO userDTO) {
-    if (userDTO.equals(null)) return false;
+    if (userDTO.getUserName() == null) return false;
     User userWillCreate = Converter.fromTo(userDTO, User.class);
     return userServices.createUser(userWillCreate);
   }
@@ -30,9 +30,9 @@ public class UserController {
     return true;
   }
 
-  @GetMapping(path = "/getAllPostsOfUser/{id}")
-  public @ResponseBody List<PostDTO> getAllPosts (@PathVariable int id){
-    Optional<User> user = userServices.findUserById(id);
+  @GetMapping(path = "/getAllPostsOfUser/{userId}")
+  public @ResponseBody List<PostDTO> getAllPosts (@PathVariable int userId){
+    Optional<User> user = userServices.findUserById(userId);
     List<Post> resultList = user.get().getPosts();
     return Converter.fromToList(resultList, PostDTO.class);
   }

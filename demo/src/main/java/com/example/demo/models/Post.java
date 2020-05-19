@@ -18,12 +18,15 @@ public class Post {
   @Column(nullable = false)
   private String content;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "poster_id", referencedColumnName = "id", nullable = false)
   private User poster;
 
   @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
   private List<Like> likes = new ArrayList<Like>();
+
+  @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+  private List<Comment> comments = new ArrayList<Comment>();
 
   @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
   private Date createdAt;
@@ -61,6 +64,14 @@ public class Post {
 
   public void setLikes(List<Like> likes) {
     this.likes = likes;
+  }
+
+  public List<Comment> getComments() {
+    return comments;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
   }
 
   public Date getCreatedAt() {

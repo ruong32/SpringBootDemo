@@ -12,13 +12,14 @@ public class Like {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  private String type = "like"; // like, haha, wow, angry,...
+  @Column(columnDefinition = "varchar(15) default \"like\"")
+  private String type; // like, haha, wow, angry,...
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
   private Post post;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
   private User user;
 
