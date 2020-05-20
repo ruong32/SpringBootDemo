@@ -11,9 +11,8 @@ spring.datasource.driver-class-name=org.mariadb.jdbc.Driver /*database driver*/
 spring.jpa.hibernate.ddl-auto=update /*cách công vụ quản lý lược đồ chi phối lược đồ của database*/
 ```
 ### Danh sách API
- 
 |Api|Method|Data/parameter|
-|-|:-:|-|
+|:-|:-:|:-|
 |/createUser|Post|Data: {"userName": "name"}| 
 |/createPost|Post|Data:{"content": "post's content", "poster": {"id": number}}|
 |/like|Post|Data:{"user": {"id": number}, "postId": number}|
