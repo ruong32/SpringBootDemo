@@ -1,6 +1,5 @@
-# Hướng dẫn
-
-## Cấu hình
+# Guide
+## Configuration
 SpringBootDemo/demo/src/main/resources/application.properties
 ```Java
 server.port= /*server port*/
@@ -10,12 +9,12 @@ spring.datasource.password= /*database password*/
 spring.datasource.driver-class-name=org.mariadb.jdbc.Driver /*database driver*/
 spring.jpa.hibernate.ddl-auto=update /*cách công vụ quản lý lược đồ chi phối lược đồ của database*/
 ```
-## Danh sách API
+## API list
 |Api|Method|Data/parameter|
 |:-|:-:|:-|
 |/createUser|Post|Data: {"userName": string}| 
 |/createPost|Post|Data: {"content": string, "poster": {"id": number}}|
-|/like|Post|Data: {"user": {"id": number}, "postId": number}|
+|/like|Post|Data: {"type": string, "user": {"id": number}, "postId": number}|
 |/createComment|Post|Data: {"content": string, "user": {"id": number}, "postId": number}|
 |/findUserByName|Get|Path parameter: string|
 |/getUserById|Get|Path parameter: number|
