@@ -7,7 +7,7 @@ spring.datasource.url= /*database url*/
 spring.datasource.username= /*database username*/
 spring.datasource.password= /*database password*/
 spring.datasource.driver-class-name=org.mariadb.jdbc.Driver /*database driver*/
-spring.jpa.hibernate.ddl-auto=update /*cách công vụ quản lý lược đồ chi phối lược đồ của database*/
+spring.jpa.hibernate.ddl-auto=update /*how schema management tool manipulates database's schema*/
 ```
 ## API list
 |Api|Method|Data/parameter|
