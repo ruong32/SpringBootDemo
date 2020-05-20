@@ -21,7 +21,7 @@ spring.jpa.hibernate.ddl-auto=update /*cách công vụ quản lý lược đồ
 |/getUserById|Get|Path parameter: number|
 |/getAllPostsOfUser|Get|Path parameter: number|
 |/findPostByContent|Get|Path parameter: string|
-|/findPostFromDate|Get|Query string parameters: data=string (format: yyyy-MM-dd)|
+|/findPostFromDate|Get|Query string parameters: date=string (format: yyyy-MM-dd)|
 |/getAllLikesOfPost|Get|Path parameter: number|
 |/getAllCommentOfPost|Get|Path parameter: number|
 |/deleteUserById|Delete|Data: number|
