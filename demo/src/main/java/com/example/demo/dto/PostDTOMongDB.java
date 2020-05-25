@@ -1,19 +1,17 @@
 package com.example.demo.dto;
 
-import org.springframework.data.annotation.CreatedDate;
-
 import java.util.Date;
 import java.util.List;
 
-public class PostDTO {
+public class PostDTOMongDB {
     private int id;
     private String content;
-    private UserDTO poster;
-    private List<LikeDTO> likes;
-    private List<CommentDTO> comments;
-    private Date createdAt;
+    private UserDTOMongoDB poster;
+    private List<LikeDTOMongoDB> likes;
+    private List<CommentDTOMongoDB> comments;
+    private Date createdAt = new Date(System.currentTimeMillis() + 7 * 3600 * 1000);
 
-    public PostDTO() {
+    public PostDTOMongDB() {
     }
 
     public int getId() {
@@ -32,27 +30,27 @@ public class PostDTO {
         this.content = content;
     }
 
-    public UserDTO getPoster() {
+    public UserDTOMongoDB getPoster() {
         return poster;
     }
 
-    public void setPoster(UserDTO poster) {
+    public void setPoster(UserDTOMongoDB poster) {
         this.poster = poster;
     }
 
-    public List<LikeDTO> getLikes() {
+    public List<LikeDTOMongoDB> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<LikeDTO> likes) {
+    public void setLikes(List<LikeDTOMongoDB> likes) {
         this.likes = likes;
     }
 
-    public List<CommentDTO> getComments() {
+    public List<CommentDTOMongoDB> getComments() {
         return comments;
     }
 
-    public void setComments(List<CommentDTO> comments) {
+    public void setComments(List<CommentDTOMongoDB> comments) {
         this.comments = comments;
     }
 
