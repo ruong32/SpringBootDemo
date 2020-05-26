@@ -18,4 +18,7 @@ public interface PostRepositoryMongoDB extends MongoRepository<PostMongoDB, Inte
 
     @Query("{'createdAt' : {$gte: ?0}}")
     List<PostMongoDB> findAllFromDate(Date date);
+
+    @Query(value = "{'poster.$id': {$eq: ?0}}", delete = true)
+    void deleteAllPostOfUser(int id);
 }

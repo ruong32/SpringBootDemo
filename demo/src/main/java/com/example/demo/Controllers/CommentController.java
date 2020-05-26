@@ -1,14 +1,15 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.CommentDTO;
+import com.example.demo.dto.CommentDTOMongoDB;
 import com.example.demo.models.Comment;
-import com.example.demo.services.CommentServices;
-import com.example.demo.services.PostServices;
-import com.example.demo.services.UserServices;
+import com.example.demo.models.CommentMongoDB;
+import com.example.demo.services.*;
 import com.example.demo.utilities.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -20,9 +21,16 @@ public class CommentController {
     private UserServices userServices;
     @Autowired
     private PostServices postServices;
+    @Autowired
+    private CommentServicesMongoDB commentServicesMongoDB;
+    @Autowired
+    private UserServicesMongoDB userServicesMongoDB;
+    @Autowired
+    private PostServicesMongoDB postServicesMongoDB;
 
     @PostMapping(path = "/createComment")
     public @ResponseBody boolean createComment(@RequestBody CommentDTO commentDTO){
+        // mariadb
         if (userServices.findUserById(commentDTO.getUser().getId()).isEmpty()){
             return false;
         }
@@ -30,19 +38,29 @@ public class CommentController {
             return false;
         }
         Comment commentWillCreate = Converter.fromTo(commentDTO, Comment.class);
-        return commentServices.createComment(commentWillCreate);
+
+        // mongodb
+        if (userServicesMongoDB.findUserById(commentDTO.getUser().getId()).isEmpty()){
+            return false;
+        }
+        if (postServicesMongoDB.findPostById(commentDTO.getPostId()).isEmpty()){
+            return false;
+        }
+        CommentMongoDB commentMongoDB = Converter.fromTo(commentDTO, CommentMongoDB.class);
+        commentMongoDB.setCreatedAt(new Date(System.currentTimeMillis() + 7 * 3600 * 1000));
+
+        return commentServices.createComment(commentWillCreate)&&commentServicesMongoDB.createComment(commentMongoDB);
     }
 
     @GetMapping(path = "/getAllCommentOfPost/{postId}")
-    public @ResponseBody List<CommentDTO> getAllCommentOfPost(@PathVariable int postId) {
-        List<Comment> resultList = commentServices.getAllCommentOfPost(postId);
-        return Converter.fromToList(resultList, CommentDTO.class);
+    public @ResponseBody List<CommentDTOMongoDB> getAllCommentOfPost(@PathVariable int postId) {
+        List<CommentMongoDB> resultList = commentServicesMongoDB.getAllCommentOfPost(postId);
+        return Converter.fromToList(resultList, CommentDTOMongoDB.class);
     }
 
-    @DeleteMapping(path = "/deleteComment")
+    @DeleteMapping(path = "/deleteCommentById")
     public @ResponseBody boolean deleteComment(@RequestBody int commentId) {
-        commentServices.deleteComment(commentId);
-        return true;
+        return commentServices.deleteComment(commentId) && commentServicesMongoDB.deleteComment(commentId);
     }
 
 }

@@ -1,9 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Post;
 import com.example.demo.models.PostMongoDB;
 import com.example.demo.repositories.PostRepositoryMongoDB;
-import com.example.demo.specifications.PostSpecs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +14,10 @@ public class PostServicesMongoDB {
 
     @Autowired
     private PostRepositoryMongoDB postRepositoryMongoDB;
+    @Autowired
+    private LikeServicesMongoDB likeServicesMongoDB;
+    @Autowired
+    private CommentServicesMongoDB commentServicesMongoDB;
 
     public boolean createPost(PostMongoDB post) {
         postRepositoryMongoDB.save(post);
@@ -35,8 +37,14 @@ public class PostServicesMongoDB {
     }
 
     public boolean deletePostById(int postId) {
+        commentServicesMongoDB.deleteAllCommentOfPost(postId);
+        likeServicesMongoDB.deleteAllLikeOfPost(postId);
         postRepositoryMongoDB.deleteById(postId);
         return true;
+    }
+
+    public void deleteAllPostOfUser(int userId) {
+        postRepositoryMongoDB.deleteAllPostOfUser(userId);
     }
 
     public List<PostMongoDB> getPostByUserId(int userId){

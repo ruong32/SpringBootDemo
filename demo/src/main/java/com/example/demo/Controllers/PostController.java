@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.LikeDTO;
+import com.example.demo.dto.LikeDTOMongoDB;
 import com.example.demo.dto.PostDTO;
 import com.example.demo.dto.PostDTOMongDB;
 import com.example.demo.utilities.Converter;
@@ -29,6 +30,8 @@ public class PostController {
   private UserServicesMongoDB userServicesMongoDB;
   @Autowired
   private PostServicesMongoDB postServicesMongoDB;
+  @Autowired
+  private LikeServicesMongoDB likeServicesMongoDB;
 
   @PostMapping(path = "/createPost", consumes = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody boolean createPost(@RequestBody PostDTO postDTO) {
@@ -54,9 +57,9 @@ public class PostController {
   }
 
   @GetMapping(path="/getAllLikesOfPost/{postId}")
-  public @ResponseBody List<LikeDTO> getAllLikesOfPost(@PathVariable int postId) {
-    List<Like> resultList = likeServices.getAllLikesOfPost(postId);
-    return Converter.fromToList(resultList, LikeDTO.class);
+  public @ResponseBody List<LikeDTOMongoDB> getAllLikesOfPost(@PathVariable int postId) {
+    List<LikeMongoDB> resultList = likeServicesMongoDB.getAllLikesOfPost(postId);
+    return Converter.fromToList(resultList, LikeDTOMongoDB.class);
   }
 
   @DeleteMapping(path = "/deletePostById")

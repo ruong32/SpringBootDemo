@@ -4,6 +4,7 @@ import com.example.demo.models.Comment;
 import com.example.demo.repositories.CommentRepository;
 import com.example.demo.specifications.CommentSpecs;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,11 @@ public class CommentServices {
     }
 
     public boolean deleteComment(int commentId) {
-        repository.deleteById(commentId);
-        return true;
+        try {
+            repository.deleteById(commentId);
+            return true;
+        }catch (EmptyResultDataAccessException e){
+            return false;
+        }
     };
 }
