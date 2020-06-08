@@ -3,11 +3,19 @@
 SpringBootDemo/demo/src/main/resources/application.properties
 ```Java
 server.port= /*server port*/
+
+//mariadb
 spring.datasource.url= /*database url*/
 spring.datasource.username= /*database username*/
 spring.datasource.password= /*database password*/
 spring.datasource.driver-class-name=org.mariadb.jdbc.Driver /*database driver*/
 spring.jpa.hibernate.ddl-auto=update /*how schema management tool manipulates database's schema*/
+
+//mongodb
+spring.data.mongodb.host=/*database host*/
+spring.data.mongodb.port=/*database port*/
+spring.data.mongodb.database=/*database name*/
+
 ```
 ## API list
 |Api|Method|Data/parameter|
