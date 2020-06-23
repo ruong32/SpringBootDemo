@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.models.OutBox;
 import com.example.demo.specifications.UserSpecs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,14 @@ import java.util.Optional;
 public class UserServices {
   @Autowired
   private UserRepository repository;
+  @Autowired
+  private OutBoxServices outBoxServices;
 
   public boolean createUser(User user) {
     User savedUser = repository.save(user);
+    String payload = "{id:" + savedUser.getId() + ", userName:" + savedUser.getUserName()+"}";
+    OutBox outBox = new OutBox().setAggregateId(savedUser.getId()).setAggregateType("user").setType("c").setPayload(payload);
+    outBoxServices.handleOutBoxEvent(outBox);
     if (savedUser != null)
       return true;
     return false;
