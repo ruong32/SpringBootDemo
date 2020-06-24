@@ -1,13 +1,13 @@
 package com.example.demo.models;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "OutBox")
 public class OutBox {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String uuid;
 
     private String AggregateType;
 
@@ -18,17 +18,19 @@ public class OutBox {
     private String Payload;
 
     public OutBox() {
+        uuid = UUID.randomUUID().toString();
     }
 
     public OutBox(String aggregateType, int aggregateId, String type, String payload) {
+        uuid = UUID.randomUUID().toString();
         AggregateType = aggregateType;
         AggregateId = aggregateId;
         Type = type;
         Payload = payload;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return uuid;
     }
 
     public String getAggregateType() {
